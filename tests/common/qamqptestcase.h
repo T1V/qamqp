@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QTestEventLoop>
+#include <QTest>
+#include <QSignalSpy>
 
 #include "qamqpqueue.h"
 
@@ -13,7 +15,7 @@ public:
     virtual ~TestCase() {}
 
 protected:
-    bool waitForSignal(QObject *obj, const char *signal, int delay = 5)
+    bool waitForSignal(QObject *obj, const char *signal, int delay = 1)
     {
         QObject::connect(obj, signal, &QTestEventLoop::instance(), SLOT(exitLoop()));
         QPointer<QObject> safe = obj;

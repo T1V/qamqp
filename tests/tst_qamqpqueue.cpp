@@ -1,59 +1,4 @@
-#include <float.h>
-
-#include <QScopedPointer>
-
-#include <QtTest/QtTest>
-#include "qamqptestcase.h"
-#include "signalspy.h"
-
-#include "qamqpclient.h"
-#include "qamqpqueue.h"
-#include "qamqpexchange.h"
-
-class tst_QAMQPQueue : public TestCase
-{
-    Q_OBJECT
-private Q_SLOTS:
-    void init();
-    void cleanup();
-
-    void defaultExchange();
-    void standardExchanges_data();
-    void standardExchanges();
-    void invalidDeclaration_data();
-    void invalidDeclaration();
-    void invalidBind();
-    void unnamed();
-    void exclusiveAccess();
-    void exclusiveRemoval();
-    void notFound();
-    void remove();
-    void removeIfUnused();
-    void removeIfEmpty();
-    void bindUnbind();
-    void delayedBind();
-    void purge();
-    void canOnlyStartConsumingOnce();
-    void ensureConsumeOnlySentOnce();
-    void cancel();
-    void invalidCancelBecauseNotConsuming();
-    void invalidCancelBecauseInvalidConsumerTag();
-    void getEmpty();
-    void get();
-    void verifyContentEncodingIssue33();
-    void defineQos();
-    void invalidQos();
-    void qos();
-    void invalidRoutingKey();
-    void tableFieldDataTypes();
-    void messageProperties();
-    void emptyMessage();
-    void cleanupOnDeletion();
-
-private:
-    QScopedPointer<QAmqpClient> client;
-
-};
+#include "tst_qamqpqueue.h"
 
 void tst_QAMQPQueue::init()
 {
@@ -356,7 +301,7 @@ void tst_QAMQPQueue::canOnlyStartConsumingOnce()
 void tst_QAMQPQueue::ensureConsumeOnlySentOnce()
 {
     QAmqpQueue *queue = client->createQueue("test-single-consumer");
-    SignalSpy spy(queue, SIGNAL(consuming(QString)));
+    QSignalSpy spy(queue, SIGNAL(consuming(QString)));
     queue->declare();
     QVERIFY(waitForSignal(queue, SIGNAL(declared())));
 
@@ -692,6 +637,3 @@ void tst_QAMQPQueue::cleanupOnDeletion()
     queue->close();
     QVERIFY(waitForSignal(queue, SIGNAL(closed())));
 }
-
-QTEST_MAIN(tst_QAMQPQueue)
-#include "tst_qamqpqueue.moc"

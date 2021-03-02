@@ -1,38 +1,4 @@
-#include <QtTest/QtTest>
-
-#include "signalspy.h"
-#include "qamqptestcase.h"
-
-#include "qamqpclient.h"
-#include "qamqpexchange.h"
-#include "qamqpqueue.h"
-
-class tst_QAMQPExchange : public TestCase
-{
-    Q_OBJECT
-private Q_SLOTS:
-    void init();
-    void cleanup();
-
-    void standardTypes_data();
-    void standardTypes();
-    void invalidStandardDeclaration_data();
-    void invalidStandardDeclaration();
-    void invalidDeclaration();
-    void invalidRedeclaration();
-    void removeIfUnused();
-    void invalidMandatoryRouting();
-    void invalidImmediateRouting();
-    void confirmsSupport();
-    void confirmDontLoseMessages();
-    void passiveDeclareNotFound();
-    void cleanupOnDeletion();
-    void testQueuedPublish();
-
-private:
-    QScopedPointer<QAmqpClient> client;
-
-};
+#include "tst_qamqpexchange.h"
 
 void tst_QAMQPExchange::init()
 {
@@ -241,6 +207,3 @@ void tst_QAMQPExchange::testQueuedPublish()
 
     QVERIFY(defaultExchange->waitForConfirms());
 }
-
-QTEST_MAIN(tst_QAMQPExchange)
-#include "tst_qamqpexchange.moc"

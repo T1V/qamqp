@@ -1,28 +1,4 @@
-#include <QtTest/QtTest>
-
-#include "signalspy.h"
-#include "qamqptestcase.h"
-
-#include "qamqpclient.h"
-#include "qamqpexchange.h"
-#include "qamqpqueue.h"
-
-class tst_QAMQPChannel : public TestCase
-{
-    Q_OBJECT
-private Q_SLOTS:
-    void init();
-    void cleanup();
-
-    void close();
-    void resume();
-    void sharedChannel();
-    void defineWithChannelNumber();
-
-private:
-    QScopedPointer<QAmqpClient> client;
-
-};
+#include "tst_qamqpchannel.h"
 
 void tst_QAMQPChannel::init()
 {
@@ -92,6 +68,3 @@ void tst_QAMQPChannel::defineWithChannelNumber()
     declareQueueAndVerifyConsuming(queue);
     QCOMPARE(queue->channelNumber(), 25);
 }
-
-QTEST_MAIN(tst_QAMQPChannel)
-#include "tst_qamqpchannel.moc"
