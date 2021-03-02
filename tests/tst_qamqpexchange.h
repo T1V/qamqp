@@ -30,7 +30,6 @@ private Q_SLOTS:
     void passiveDeclareNotFound();
     void cleanupOnDeletion();
     void testQueuedPublish();
-    void referenceCountExchanges();
 
 private:
     QScopedPointer<QAmqpClient> client;
