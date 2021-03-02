@@ -82,10 +82,12 @@ target.path = $${PREFIX}/$${LIBDIR}
 INSTALLS += headers target
 
 # pkg-config support
-CONFIG += create_pc create_prl no_install_prl
-QMAKE_PKGCONFIG_DESTDIR = pkgconfig
-QMAKE_PKGCONFIG_LIBDIR = $$target.path
-QMAKE_PKGCONFIG_INCDIR = $$headers.path
+equals(QAMQP_PACKAGE, true) {
+  CONFIG += create_pc create_prl no_install_prl
+  QMAKE_PKGCONFIG_DESTDIR = pkgconfig
+  QMAKE_PKGCONFIG_LIBDIR = $$target.path
+  QMAKE_PKGCONFIG_INCDIR = $$headers.path
+}
 equals(QAMQP_LIBRARY_TYPE, staticlib) {
     QMAKE_PKGCONFIG_CFLAGS = -DQAMQP_STATIC
 } else {

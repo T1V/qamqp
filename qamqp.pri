@@ -7,9 +7,6 @@ isEmpty(QAMQP_LIBRARY_TYPE) {
 QT += network
 QAMQP_INCLUDEPATH = $${PWD}/src
 QAMQP_LIBS = -lqamqp
-CONFIG(debug, debug|release){
-    QAMQP_LIBS = -lqamqpd
-}
 contains(QAMQP_LIBRARY_TYPE, staticlib) {
     DEFINES += QAMQP_STATIC
 } else {
