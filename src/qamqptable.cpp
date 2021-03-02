@@ -368,3 +368,12 @@ QDataStream &operator>>(QDataStream &stream, QAmqpTable &table)
 
     return stream;
 }
+
+void QAmqpTable::mergeHash(const QAmqpTable &amqpTable)
+{
+  QHashIterator<QString, QVariant> iterate(amqpTable);
+  while (iterate.hasNext()) {
+    iterate.next();
+    this->insert(iterate.key(), iterate.value());
+  }
+}

@@ -31,6 +31,8 @@ public:
     {
     }
 
+    void mergeHash(const QAmqpTable &amqpTable);
+
     static void writeFieldValue(QDataStream &stream, const QVariant &value);
     static void writeFieldValue(QDataStream &stream, QAmqpMetaType::ValueType type, const QVariant &value);
     static QVariant readFieldValue(QDataStream &stream, QAmqpMetaType::ValueType type);

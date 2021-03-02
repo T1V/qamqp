@@ -531,7 +531,7 @@ void QAmqpClientPrivate::startOk()
     clientProperties["version"] = QString(QAMQP_VERSION);
     clientProperties["platform"] = QString("Qt %1").arg(qVersion());
     clientProperties["product"] = QString("QAMQP");
-    clientProperties.unite(customProperties);
+    clientProperties.mergeHash(customProperties);
     stream << clientProperties;
 
     authenticator->write(stream);
