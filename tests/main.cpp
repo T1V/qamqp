@@ -25,5 +25,8 @@ int main(int argc, char *argv[])
        status |= QTest::qExec(&ta, argc, argv);
    }
 
+   if (status != 0) {
+     qWarning("TESTS FAILED");
+   }
    return status;
 }

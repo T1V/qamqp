@@ -108,6 +108,32 @@ void QAmqpChannelHash::put(const QString& name, QAmqpChannel* channel)
 {
     connect(channel, SIGNAL(destroyed(QObject*)), this, SLOT(channelDestroyed(QObject*)));
     m_channels[name] = channel;
+    incrementReference(channel->name());
+}
+
+void QAmqpChannelHash::destroy(QAmqpChannel *channel)
+{
+  int ref = decrementReference(channel->name());
+  if (ref == 0) {
+    channel->deleteLater();
+  }
+}
+
+void QAmqpChannelHash::incrementReference(const QString& name)
+{
+  int ref = m_channelrefs[name] + 1;
+  m_channelrefs[name] = ref;
+}
+
+int QAmqpChannelHash::decrementReference(const QString& name)
+{
+  int ref = m_channelrefs[name] - 1;
+  if (ref == 0) {
+    m_channelrefs.remove(name);
+  } else {
+    m_channelrefs[name] = ref;
+  }
+  return ref;
 }
 
 /* vim: set ts=4 sw=4 et */

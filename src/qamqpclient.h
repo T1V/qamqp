@@ -104,6 +104,11 @@ public:
     QAmqpQueue *createQueue(int channelNumber = -1);
     QAmqpQueue *createQueue(const QString &name, int channelNumber = -1);
 
+    /** Marks the exchange as ready for deletion. If the exchange is not used anywhere else, it is deleted. */
+    void destroyExchange(QAmqpExchange *exchange);
+    /** Marks the queue as ready for deletion. If the queue is not used anywhere else, it is deleted. */
+    void destroyQueue(QAmqpQueue *exchange);
+
     // methods
     void connectToHost(const QString &uri = QString());
     void connectToHost(const QHostAddress &address, quint16 port = AMQP_PORT);

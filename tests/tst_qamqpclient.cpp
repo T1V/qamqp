@@ -291,3 +291,15 @@ void tst_QAMQPClient::issue38_take2()
     client.disconnectFromHost();
     QVERIFY(waitForSignal(&client,SIGNAL(disconnected())));
 }
+
+void tst_QAMQPClient::referenceCountExchanges()
+{
+  QAmqpClient client;
+  QAmqpExchange *exchange = client.createExchange("test-deletion");
+  QAmqpExchange *exchange2 = client.createExchange("test-deletion");
+
+  client.destroyExchange(exchange);
+  client.destroyExchange(exchange2);
+  QVERIFY(waitForSignal(exchange, SIGNAL(destroyed())));
+}
+

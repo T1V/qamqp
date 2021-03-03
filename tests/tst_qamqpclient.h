@@ -27,6 +27,7 @@ private Q_SLOTS:
     void validateUri();
     void issue38();
     void issue38_take2();
+    void referenceCountExchanges();
 
 public Q_SLOTS:     // temporarily disabled
     void autoReconnect();

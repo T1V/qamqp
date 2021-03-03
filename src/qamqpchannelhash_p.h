@@ -71,6 +71,22 @@ public:
      */
     void put(QAmqpQueue* queue);
 
+    /*!
+     * Reduces the reference count of the channel. If the count is zero, the
+     * channel is removed from the hash and deleted
+     */
+    void destroy(QAmqpChannel *channel);
+
+    /*!
+     * Increment the reference count of an object already in the hash
+     */
+    void incrementReference(const QString& name);
+
+    /*!
+     * Increment the reference count of an object already in the hash
+     */
+    int decrementReference(const QString& name);
+
 private Q_SLOTS:
     /*!
      * Handle destruction of a channel.  Do a full garbage collection run.
@@ -92,6 +108,10 @@ private:
 
     /*! A collection of channels.  Key is the channel's "name". */
     QHash<QString, QAmqpChannel*> m_channels;
+    /*! Channel reference counts matching the channels */
+    QHash<QString, int> m_channelrefs;
+
+
 };
 
 /* vim: set ts=4 sw=4 et */

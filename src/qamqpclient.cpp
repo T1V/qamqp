@@ -711,8 +711,10 @@ QAmqpExchange *QAmqpClient::createExchange(const QString &name, int channelNumbe
     QAmqpExchange *exchange;
     if (d->exchanges.contains(name)) {
         exchange = qobject_cast<QAmqpExchange*>(d->exchanges.get(name));
-        if (exchange)
+        if (exchange) {
+            d->exchanges.incrementReference(name);
             return exchange;
+        }
     }
 
     exchange = new QAmqpExchange(channelNumber, this);
@@ -738,8 +740,10 @@ QAmqpQueue *QAmqpClient::createQueue(const QString &name, int channelNumber)
     QAmqpQueue *queue;
     if (d->queues.contains(name)) {
         queue = qobject_cast<QAmqpQueue*>(d->queues.get(name));
-        if (queue)
+        if (queue) {
+            d->queues.incrementReference(name);
             return queue;
+        }
     }
 
     queue = new QAmqpQueue(channelNumber, this);
@@ -754,6 +758,18 @@ QAmqpQueue *QAmqpClient::createQueue(const QString &name, int channelNumber)
         queue->setName(name);
     d->queues.put(queue);
     return queue;
+}
+
+void QAmqpClient::destroyExchange(QAmqpExchange *exchange)
+{
+  Q_D(QAmqpClient);
+  d->exchanges.destroy(exchange);
+}
+
+void QAmqpClient::destroyQueue(QAmqpQueue *queue)
+{
+  Q_D(QAmqpClient);
+  d->queues.destroy(queue);
 }
 
 void QAmqpClient::setAuth(QAmqpAuthenticator *authenticator)
