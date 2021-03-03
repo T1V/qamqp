@@ -1,3 +1,6 @@
+exists(../../subproject.pri) {
+  include(../../subproject.pri) # Allow parent projects to tweak our variables
+}
 include(../qamqp.pri)
 
 INCLUDEPATH += .
