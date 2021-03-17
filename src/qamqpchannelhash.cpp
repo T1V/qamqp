@@ -115,6 +115,7 @@ void QAmqpChannelHash::destroy(QAmqpChannel *channel)
 {
   int ref = decrementReference(channel->name());
   if (ref == 0) {
+    channelDestroyed(channel);
     channel->deleteLater();
   }
 }

@@ -303,3 +303,14 @@ void tst_QAMQPClient::referenceCountExchanges()
   QVERIFY(waitForSignal(exchange, SIGNAL(destroyed())));
 }
 
+void tst_QAMQPClient::destroyCreateRaceCondition()
+{
+  QAmqpClient client;
+  QAmqpExchange *exchange = client.createExchange("test-deletion");
+
+  client.destroyExchange(exchange);
+  QAmqpExchange *exchange2 = client.createExchange("test-deletion");
+
+  QVERIFY(exchange2 != exchange);
+}
+
