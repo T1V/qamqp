@@ -43,6 +43,7 @@ void QAmqpExchangePrivate::declare()
         delayedDeclare = true;
         return;
     }
+    delayedDeclare = false;
 
     if (name.isEmpty()) {
         qAmqpDebug() << Q_FUNC_INFO << "attempting to declare an unnamed exchange, aborting...";
@@ -69,7 +70,6 @@ void QAmqpExchangePrivate::declare()
 
     frame.setArguments(args);
     sendFrame(frame);
-    delayedDeclare = false;
 }
 
 bool QAmqpExchangePrivate::_q_method(const QAmqpMethodFrame &frame)
