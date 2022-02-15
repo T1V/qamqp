@@ -1,7 +1,7 @@
 #include <QDateTime>
 #include <QList>
 #include <QDebug>
-
+#include <QIODevice>
 #include "qamqptable.h"
 #include "qamqpglobal.h"
 #include "qamqpframe_p.h"
@@ -208,7 +208,7 @@ QVariant QAmqpFrame::readAmqpField(QDataStream &s, QAmqpMetaType::ValueType type
     {
         qulonglong tmp_value;
         s >> tmp_value;
-        return QDateTime::fromTime_t(tmp_value);
+        return QDateTime::fromSecsSinceEpoch(tmp_value);
     }
     case QAmqpMetaType::Hash:
     {
@@ -262,7 +262,7 @@ void QAmqpFrame::writeAmqpField(QDataStream &s, QAmqpMetaType::ValueType type, c
     }
         break;
     case QAmqpMetaType::Timestamp:
-        s << qulonglong(value.toDateTime().toTime_t());
+        s << qulonglong(value.toDateTime().toSecsSinceEpoch());
         break;
     case QAmqpMetaType::Hash:
     {
