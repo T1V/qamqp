@@ -95,8 +95,6 @@ public:
     QSslConfiguration sslConfiguration() const;
     void setSslConfiguration(const QSslConfiguration &config);
 
-    static QString gitVersion();
-
     // channels
     QAmqpExchange *createExchange(int channelNumber = -1);
     QAmqpExchange *createExchange(const QString &name, int channelNumber = -1);
