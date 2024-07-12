@@ -1,11 +1,11 @@
-exists(../../subproject.pri) {
-  include(../../subproject.pri) # Allow parent projects to tweak our variables
-}
 include(../qamqp.pri)
 
 INCLUDEPATH += .
 TEMPLATE = lib
 TARGET = qamqp
+build_pass:CONFIG(debug, debug|release) {
+    TARGET = $$join(TARGET,,,d)
+}
 QT += core network
 QT -= gui
 DEFINES += QAMQP_BUILD
@@ -78,12 +78,10 @@ target.path = $${PREFIX}/$${LIBDIR}
 INSTALLS += headers target
 
 # pkg-config support
-equals(QAMQP_PACKAGE, true) {
-  CONFIG += create_pc create_prl no_install_prl
-  QMAKE_PKGCONFIG_DESTDIR = pkgconfig
-  QMAKE_PKGCONFIG_LIBDIR = $$target.path
-  QMAKE_PKGCONFIG_INCDIR = $$headers.path
-}
+CONFIG += create_pc create_prl no_install_prl
+QMAKE_PKGCONFIG_DESTDIR = pkgconfig
+QMAKE_PKGCONFIG_LIBDIR = $$target.path
+QMAKE_PKGCONFIG_INCDIR = $$headers.path
 equals(QAMQP_LIBRARY_TYPE, staticlib) {
     QMAKE_PKGCONFIG_CFLAGS = -DQAMQP_STATIC
 } else {
