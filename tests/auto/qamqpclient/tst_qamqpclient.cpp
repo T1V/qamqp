@@ -326,6 +326,27 @@ void tst_QAMQPClient::issue38_take2()
     QVERIFY(waitForSignal(&client,SIGNAL(disconnected())));
 }
 
+void tst_QAMQPClient::referenceCountExchanges()
+{
+  QAmqpClient client;
+  QAmqpExchange *exchange = client.createExchange("test-deletion");
+  QAmqpExchange *exchange2 = client.createExchange("test-deletion");
+
+  client.destroyExchange(exchange);
+  client.destroyExchange(exchange2);
+  QVERIFY(waitForSignal(exchange, SIGNAL(destroyed())));
+}
+
+void tst_QAMQPClient::destroyCreateRaceCondition()
+{
+  QAmqpClient client;
+  QAmqpExchange *exchange = client.createExchange("test-deletion");
+
+  client.destroyExchange(exchange);
+  QAmqpExchange *exchange2 = client.createExchange("test-deletion");
+
+  QVERIFY(exchange2 != exchange);
+}
 
 QTEST_MAIN(tst_QAMQPClient)
 #include "tst_qamqpclient.moc"
