@@ -1,4 +1,4 @@
-qt_add_library(qamqp STATIC
+qt_add_library(qamqp
     qamqpauthenticator.cpp qamqpauthenticator.h
     qamqpchannel.cpp qamqpchannel.h qamqpchannel_p.h
     qamqpchannelhash.cpp qamqpchannelhash_p.h
