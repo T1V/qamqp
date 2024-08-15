@@ -22,9 +22,10 @@ execute_process(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-target_compile_definitions(qamqp PUBLIC
+target_compile_definitions(qamqp PRIVATE
     GIT_VERSION=\"${GIT_HASH}\"
     QAMQP_BUILD
+    QAMQP_SHARED
 )
 
 target_link_libraries(qamqp PUBLIC

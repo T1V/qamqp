@@ -51,15 +51,11 @@
 
 #define AMQP_CONNECTION_FORCED 320
 
-#ifdef QAMQP_SHARED
 #   ifdef QAMQP_BUILD
 #       define QAMQP_EXPORT Q_DECL_EXPORT
 #   else
 #       define QAMQP_EXPORT Q_DECL_IMPORT
 #   endif
-#else
-#   define QAMQP_EXPORT
-#endif
 
 #define qAmqpDebug if (qEnvironmentVariableIsEmpty("QAMQP_DEBUG")); else qDebug
 
