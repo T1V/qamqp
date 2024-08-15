@@ -1,4 +1,7 @@
-qt_add_library(qamqp
+if(WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
+qt_add_library(qamqp SHARED
     qamqpauthenticator.cpp qamqpauthenticator.h
     qamqpchannel.cpp qamqpchannel.h qamqpchannel_p.h
     qamqpchannelhash.cpp qamqpchannelhash_p.h
